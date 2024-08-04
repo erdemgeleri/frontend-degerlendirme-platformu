@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
 import './Users.css'
+
 function Users() {
   const [content, setContent] = useState('default');
   const [moderators, setModerators] = useState([]);
@@ -11,10 +12,13 @@ function Users() {
   const [popupMessage, setPopupMessage] = useState('');
   const [popupStyle, setPopupStyle] = useState(''); 
   const [showPopup, setShowPopup] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
 
   const handleComponentClick = (component, type) => {
     setContent(component);
     setActiveComponent(type);
+    setCurrentPage(1); // Reset page when switching components
   };
 
   const handleImportExcel = (type) => {
@@ -48,7 +52,6 @@ function Users() {
     const { name, surname } = newUser;
     let userList = [];
   
-    // Hangi listeyi kullanacağımızı belirleyin
     switch (content) {
       case 'addModerator':
         userList = moderators;
@@ -63,19 +66,16 @@ function Users() {
         return;
     }
   
-    // İsim ve soyadın boş olup olmadığını kontrol edin
     if (!name || !surname) {
       showPopupMessage('Kullanıcı adı veya Soyadı boş bırakılamaz', 'bg-red-500');
       return;
     }
   
-    // Aynı isim ve soyadına sahip bir kullanıcı olup olmadığını kontrol edin
     if (userList.some(user => user.AD === name && user.SOYADI === surname)) {
       showPopupMessage('Bu isim soyisime ait kayıtlı kullanıcı bulunmaktadır', 'bg-red-500');
       return;
     }
   
-    // Yeni kullanıcı verilerini oluşturun
     const newUserData = { 
       ROL: newUser.role, 
       AD: name, 
@@ -85,7 +85,6 @@ function Users() {
       'HESAP DURUMU': '' 
     };
   
-    // Kullanıcıyı ekleyin (listeyi güncelleyin)
     if (content === 'addModerator') {
       setModerators([...moderators, newUserData]);
     } else if (content === 'addEvaluator') {
@@ -94,10 +93,8 @@ function Users() {
       setStudents([...students, newUserData]);
     }
   
-    // Başarı mesajı gösterin
     showPopupMessage('Kullanıcı başarılı bir şekilde eklendi', 'bg-green-500');
   };
-  
 
   const showPopupMessage = (message, style) => {
     setPopupMessage(message);
@@ -127,74 +124,99 @@ function Users() {
       </div>
     );
 
+    const paginateData = (data) => {
+      const startIndex = (currentPage - 1) * rowsPerPage;
+      const endIndex = startIndex + rowsPerPage;
+      return data.slice(startIndex, endIndex);
+    };
+
     const renderTable = (list) => {
-      // Determine the column headers based on the content
+      const paginatedList = paginateData(list);
       const isStudentTable = content === 'student' || content === 'addStudent';
     
       return (
-        <table className="border border-black">
-          <thead className="border border-black">
-            <tr>
-              {isStudentTable ? (
-                <>
-                  <th>ROL</th>
-                  <th>Aday no</th>
-                  <th>Ad</th>
-                  <th>Soyad</th>
-                  <th>Kullanıcı Adı</th>
-                  <th>Şifre</th>
-                  <th>İl</th>
-                  <th>Sınav Merkezi</th>
-                  <th>Hesap durumu</th>
-                  <th>Düzenle</th>
-                </>
-              ) : (
-                <>
-                  <th>ROL</th>
-                  <th>AD</th>
-                  <th>SOYADI</th>
-                  <th>KULLANICI ADI</th>
-                  <th>ŞİFRE</th>
-                  <th>HESAP DURUMU</th>
-                  <th>DÜZENLE</th>
-                </>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {list.map((user, index) => (
-              <tr key={index}>
+        <div>
+          <table className="border border-black w-full">
+            <thead className="border border-black">
+              <tr>
                 {isStudentTable ? (
                   <>
-                    <td>{user.ROL}</td>
-                    <td>{user['Aday no']}</td>
-                    <td>{user.AD}</td>
-                    <td>{user.SOYADI}</td>
-                    <td>{user['Kullanıcı Adı']}</td>
-                    <td>{user.ŞİFRE}</td>
-                    <td>{user.İL}</td>
-                    <td>{user['Sınav Merkezi']}</td>
-                    <td>{user['HESAP DURUMU']}</td>
-                    <td><button>Düzenle</button></td>
+                    <th className="bg-gray-200 text-center">ROL</th>
+                    <th className="bg-gray-200 text-center">Aday no</th>
+                    <th className="bg-gray-200 text-center">Ad</th>
+                    <th className="bg-gray-200 text-center">Soyad</th>
+                    <th className="bg-gray-200 text-center">Kullanıcı Adı</th>
+                    <th className="bg-gray-200 text-center">Şifre</th>
+                    <th className="bg-gray-200 text-center">İl</th>
+                    <th className="bg-gray-200 text-center">Sınav Merkezi</th>
+                    <th className="bg-gray-200 text-center">Hesap durumu</th>
+                    <th className="bg-gray-200 text-center">Düzenle</th>
                   </>
                 ) : (
                   <>
-                    <td>{user.ROL}</td>
-                    <td>{user.AD}</td>
-                    <td>{user.SOYADI}</td>
-                    <td>{user['KULLANICI ADI']}</td>
-                    <td>{user.ŞİFRE}</td>
-                    <td>{user['HESAP DURUMU']}</td>
-                    <td><button>Düzenle</button></td>
+                    <th className="bg-gray-200 text-center">ROL</th>
+                    <th className="bg-gray-200 text-center">AD</th>
+                    <th className="bg-gray-200 text-center">SOYADI</th>
+                    <th className="bg-gray-200 text-center">KULLANICI ADI</th>
+                    <th className="bg-gray-200 text-center">ŞİFRE</th>
+                    <th className="bg-gray-200 text-center">HESAP DURUMU</th>
+                    <th className="bg-gray-200 text-center">DÜZENLE</th>
                   </>
                 )}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {paginatedList.map((user, index) => (
+                <tr key={index}>
+                  {isStudentTable ? (
+                    <>
+                      <td className="text-center">{user.ROL}</td>
+                      <td className="text-center">{user['Aday no']}</td>
+                      <td className="text-center">{user.AD}</td>
+                      <td className="text-center">{user.SOYADI}</td>
+                      <td className="text-center">{user['Kullanıcı Adı']}</td>
+                      <td className="text-center">{user.ŞİFRE}</td>
+                      <td className="text-center">{user.İL}</td>
+                      <td className="text-center">{user['Sınav Merkezi']}</td>
+                      <td className="text-center">{user['HESAP DURUMU']}</td>
+                      <td className="text-center"><button>Düzenle</button></td>
+                    </>
+                  ) : (
+                    <>
+                      <td className="text-center">{user.ROL}</td>
+                      <td className="text-center">{user.AD}</td>
+                      <td className="text-center">{user.SOYADI}</td>
+                      <td className="text-center">{user['KULLANICI ADI']}</td>
+                      <td className="text-center">{user.ŞİFRE}</td>
+                      <td className="text-center">{user['HESAP DURUMU']}</td>
+                      <td className="text-center"><button>Düzenle</button></td>
+                    </>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {/* Sayfa Kontrolleri */}
+          <div className="pagination mt-4">
+            <button 
+              className="border border-black py-2 px-4 mr-2" 
+              onClick={() => setCurrentPage(currentPage - 1)} 
+              disabled={currentPage === 1}
+            >
+              Önceki
+            </button>
+            <span>Sayfa {currentPage}</span>
+            <button 
+              className="border border-black py-2 px-4 ml-2" 
+              onClick={() => setCurrentPage(currentPage + 1)} 
+              disabled={currentPage * rowsPerPage >= list.length}
+            >
+              Sonraki
+            </button>
+          </div>
+        </div>
       );
     };
-    
 
     switch(content) {
       case 'moderator':
