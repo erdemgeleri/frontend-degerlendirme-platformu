@@ -1,45 +1,59 @@
 // src/pages/loginPage/loginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Popup from '../../components/Popup';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
-  const [error, setError] = useState('');
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupType, setPopupType] = useState(''); // 'success' or 'error'
+  const [redirectAfterPopup, setRedirectAfterPopup] = useState(null); // Store redirect information
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-   
+    let newRedirectAfterPopup = null;
     if (username === 'yonetici' && password === 'yoneticiSif') {
-      localStorage.setItem('userRole', 'admin');
-      localStorage.setItem('username', username);
-      localStorage.setItem('password', password);
-      navigate('/yonetici'); 
+      setPopupMessage('Kullanıcı Girişi başarılı.');
+      setPopupType('success');
+      newRedirectAfterPopup = '/yonetici';
     } else if (username === 'moderator' && password === 'modSif') {
-      localStorage.setItem('userRole', 'moderator');
-      localStorage.setItem('username', username);
-      localStorage.setItem('password', password);
-      navigate('/moderator');
+      setPopupMessage('Kullanıcı Girişi başarılı.');
+      setPopupType('success');
+      newRedirectAfterPopup = '/moderator';
     } else if (username === 'degerlendirici' && password === 'degerlendiriciSif') {
-      localStorage.setItem('userRole', 'evaluator');
-      localStorage.setItem('username', username);
-      localStorage.setItem('password', password);
-      navigate('/degerlendirici'); 
+      setPopupMessage('Kullanıcı Girişi başarılı.');
+      setPopupType('success');
+      newRedirectAfterPopup = '/degerlendirici';
     } else if (username === 'ogrenci' && password === 'ogrenciSif') {
-      localStorage.setItem('userRole', 'student');
-      localStorage.setItem('username', username);
-      localStorage.setItem('password', password);
-      navigate('/ogrenci');
+      setPopupMessage('Kullanıcı Girişi başarılı.');
+      setPopupType('success');
+      newRedirectAfterPopup = '/ogrenci';
     } else if (username === 'ustdegerlendirici' && password === 'ustdegerlendiriciSif') {
-      localStorage.setItem('userRole', 'topEvaluator');
+      setPopupMessage('Kullanıcı Girişi başarılı.');
+      setPopupType('success');
+      newRedirectAfterPopup = '/ustdegerlendirici';
+    } else {
+      setPopupMessage('Kullanıcı adı veya şifre yanlış');
+      setPopupType('error');
+    }
+
+    if (newRedirectAfterPopup) {
+      setRedirectAfterPopup(newRedirectAfterPopup);
+    }
+  };
+
+  const handlePopupClose = () => {
+    setPopupMessage('');
+    setPopupType('');
+    if (redirectAfterPopup) {
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
-      navigate('/ustdegerlendirici'); 
-    } else {
-      setError('Kullanıcı adı veya şifre yanlış');
+      navigate(redirectAfterPopup);
+      setRedirectAfterPopup(null); // Reset redirect info
     }
   };
 
@@ -69,7 +83,6 @@ const LoginPage = () => {
         >
           {show ? 'Gizle' : 'Göster'}
         </button>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
         <button 
           onClick={handleLogin} 
           className="mt-10 bg-black text-white py-3 px-5 rounded-lg"
@@ -77,6 +90,7 @@ const LoginPage = () => {
           Giriş Yap
         </button>
       </div>
+      <Popup message={popupMessage} type={popupType} onClose={handlePopupClose} />
     </div>
   );
 }
