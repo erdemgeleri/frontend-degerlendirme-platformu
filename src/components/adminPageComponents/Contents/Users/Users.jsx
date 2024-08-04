@@ -18,7 +18,7 @@ function Users() {
   const handleComponentClick = (component, type) => {
     setContent(component);
     setActiveComponent(type);
-    setCurrentPage(1); // Reset page when switching components
+    setCurrentPage(1); 
   };
 
   const handleImportExcel = (type) => {
@@ -260,10 +260,10 @@ function Users() {
             {students.length > 0 && renderTable(students)}
           </div>
         );
-      case 'addStudent':
+      case 'addStudent': {/* Düzenlenicek */}
         return (
           <div>
-            <p className="font-bold">Ad</p>
+            <p className="font-bold">Ad</p> {/* Düzenlenicek */}
             <input type="text" name="name" placeholder="Yazınız" className="border border-black" onChange={handleInputChange} />
             <p className="font-bold">Soyad</p>
             <input type="text" name="surname" placeholder="Yazınız" className="border border-black" onChange={handleInputChange} />

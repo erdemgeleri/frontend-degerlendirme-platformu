@@ -1,13 +1,11 @@
-// src/pages/LeftLayout.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Popup from '../../../Popup';
 function LeftLayout({ role, onHomeButtonClick, onUserButtonClick, onExamsButtonClick, onAnswersButtonClick }) {
   const [activePage, setActivePage] = useState('home');
   const [popupMessage, setPopupMessage] = useState('');
-  const [popupType, setPopupType] = useState(''); // 'success' veya 'error' tipi
-  const navigate = useNavigate(); // Kullanıcıyı yönlendirmek için kullanılır
-
+  const [popupType, setPopupType] = useState(''); 
+  const navigate = useNavigate(); 
   const renderButton = (page, label, onClick) => (
     <button
       onClick={() => {
@@ -22,14 +20,14 @@ function LeftLayout({ role, onHomeButtonClick, onUserButtonClick, onExamsButtonC
 
   const handleLogout = () => {
     setPopupMessage('Çıkış yapılıyor...');
-    setPopupType('error'); // Kırmızı arka plan için 'error' tipi
+    setPopupType('error'); 
 
-    // 2 saniye bekleyip çıkış yapma işlemini gerçekleştir
+    
     setTimeout(() => {
       localStorage.removeItem('username');
       localStorage.removeItem('password');
-      navigate('/'); // Login sayfasına yönlendirme
-    }, 2000); // 2 saniye sonra yönlendirme
+      navigate('/');
+    }, 2000); // 
   };
 
   const handlePopupClose = () => {

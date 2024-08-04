@@ -1,4 +1,3 @@
-// src/components/Popup.js
 import React, { useEffect } from 'react';
 
 const Popup = ({ message, type, onClose }) => {
@@ -6,7 +5,7 @@ const Popup = ({ message, type, onClose }) => {
     if (message) {
       const timer = setTimeout(() => {
         onClose();
-      }, 2000); // 3 saniye sonra kapat
+      }, 2000); 
     
       return () => clearTimeout(timer);
     }

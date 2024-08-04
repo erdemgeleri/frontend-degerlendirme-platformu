@@ -1,4 +1,3 @@
-// src/pages/loginPage/loginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Popup from '../../components/Popup';
@@ -8,8 +7,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-  const [popupType, setPopupType] = useState(''); // 'success' or 'error'
-  const [redirectAfterPopup, setRedirectAfterPopup] = useState(null); // Store redirect information
+  const [popupType, setPopupType] = useState(''); 
+  const [redirectAfterPopup, setRedirectAfterPopup] = useState(null); 
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -53,7 +52,7 @@ const LoginPage = () => {
       localStorage.setItem('username', username);
       localStorage.setItem('password', password);
       navigate(redirectAfterPopup);
-      setRedirectAfterPopup(null); // Reset redirect info
+      setRedirectAfterPopup(null); 
     }
   };
 
