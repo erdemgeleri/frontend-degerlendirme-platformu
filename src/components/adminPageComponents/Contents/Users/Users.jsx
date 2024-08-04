@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as XLSX from "xlsx";
-import './Users.css'
+import './Users.css';
 
 function Users() {
   const [content, setContent] = useState('default');
@@ -10,7 +10,7 @@ function Users() {
   const [activeComponent, setActiveComponent] = useState('');
   const [newUser, setNewUser] = useState({ name: '', surname: '', role: '', username: '' });
   const [popupMessage, setPopupMessage] = useState('');
-  const [popupStyle, setPopupStyle] = useState(''); 
+  const [popupStyle, setPopupStyle] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
@@ -18,11 +18,31 @@ function Users() {
   const handleComponentClick = (component, type) => {
     setContent(component);
     setActiveComponent(type);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const handleImportExcel = (type) => {
     setContent(`importExcel${type}`);
+  };
+
+  const showPopupMessage = (message, style) => {
+    setPopupMessage(message);
+    setPopupStyle(style);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 5000);
+  };
+
+  const validateExcelData = (data, type) => {
+    const headers = {
+      moderators: ['ROL', 'AD', 'SOYADI', 'KULLANICI ADI', 'ŞİFRE', 'HESAP DURUMU'],
+      evaluators: ['ROL', 'AD', 'SOYADI', 'KULLANICI ADI', 'ŞİFRE', 'HESAP DURUMU'],
+      students: ['ROL', 'Aday no', 'Ad', 'Soyad', 'Kullanıcı Adı', 'Şifre', 'İl', 'Sınav Merkezi', 'Hesap durumu'],
+    };
+
+    const expectedHeaders = headers[type];
+    const fileHeaders = Object.keys(data[0]);
+
+    return expectedHeaders.every(header => fileHeaders.includes(header));
   };
 
   const handleFileUpload = (event, type) => {
@@ -35,9 +55,16 @@ function Users() {
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
+      if (!validateExcelData(jsonData, type)) {
+        showPopupMessage('Geçersiz Excel formatı! Lütfen doğru formatta bir dosya yükleyin.(Sütun isimlerini kontrol edip tekrar deneyin)', 'bg-red-500');
+        return;
+      }
+
       if (type === 'moderators') setModerators(jsonData);
       if (type === 'evaluators') setEvaluators(jsonData);
       if (type === 'students') setStudents(jsonData);
+
+      showPopupMessage('Excel başarılı bir şekilde içe aktarıldı, listeyi görmek için ilgili butona tıklayınız.', 'bg-green-500');
     };
 
     reader.readAsArrayBuffer(file);
@@ -94,13 +121,6 @@ function Users() {
     }
   
     showPopupMessage('Kullanıcı başarılı bir şekilde eklendi', 'bg-green-500');
-  };
-
-  const showPopupMessage = (message, style) => {
-    setPopupMessage(message);
-    setPopupStyle(style);
-    setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 3000);
   };
 
   const renderContent = () => {
@@ -178,7 +198,7 @@ function Users() {
                       <td className="text-center">{user.ŞİFRE}</td>
                       <td className="text-center">{user.İL}</td>
                       <td className="text-center">{user['Sınav Merkezi']}</td>
-                      <td className="text-center">{user['HESAP DURUMU']}</td>
+                      <td className="text-center">{user['Hesap durumu']}</td>
                       <td className="text-center"><button>Düzenle</button></td>
                     </>
                   ) : (
@@ -196,7 +216,6 @@ function Users() {
               ))}
             </tbody>
           </table>
-          {/* Sayfa Kontrolleri */}
           <div className="pagination mt-4">
             <button 
               className="border border-black py-2 px-4 mr-2" 
@@ -260,10 +279,10 @@ function Users() {
             {students.length > 0 && renderTable(students)}
           </div>
         );
-      case 'addStudent': {/* Düzenlenicek */}
+      case 'addStudent':
         return (
           <div>
-            <p className="font-bold">Ad</p> {/* Düzenlenicek */}
+            <p className="font-bold">Ad</p>
             <input type="text" name="name" placeholder="Yazınız" className="border border-black" onChange={handleInputChange} />
             <p className="font-bold">Soyad</p>
             <input type="text" name="surname" placeholder="Yazınız" className="border border-black" onChange={handleInputChange} />
