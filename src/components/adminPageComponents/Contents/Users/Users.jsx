@@ -242,7 +242,7 @@ function Users() {
         return (
           <div>
             {moderators.length === 0 && <p>Sistemde ekli moderatör bulunmamaktadır.</p>}
-            <div className="flex my-8 gap-x-2">
+            <div className="flex my-8 gap-10 m-10">
               <button className="border border-black py-4 px-8 rounded-lg" onClick={() => handleComponentClick('addModerator', 'moderator')}>Moderatör Ekle</button>
               <button className="border border-black py-4 px-12 rounded-lg" onClick={() => handleImportExcel('1')}>Excel Yükle</button>
             </div>
@@ -257,7 +257,7 @@ function Users() {
         return (
           <div>
             {evaluators.length === 0 && <p>Sistemde ekli değerlendirici bulunmamaktadır.</p>}
-            <div className="flex my-8 gap-x-2">
+            <div className="flex gap-10 m-8">
               <button className="border border-black py-4 px-8 rounded-lg" onClick={() => handleComponentClick('addEvaluator', 'evaluator')}>Değerlendirici Ekle</button>
               <button className="border border-black py-4 px-12 rounded-lg" onClick={() => handleImportExcel('2')}>Excel Yükle</button>
             </div>
@@ -272,7 +272,7 @@ function Users() {
         return (
           <div>
             {students.length === 0 && <p>Sistemde ekli öğrenci bulunmamaktadır.</p>}
-            <div className="flex my-8 gap-x-2">
+            <div className="flex my-8 gap-10 m-10">
               <button className="border border-black py-4 px-8 rounded-lg" onClick={() => handleComponentClick('addStudent', 'student')}>Öğrenci Ekle</button>
               <button className="border border-black py-4 px-12 rounded-lg" onClick={() => handleImportExcel('3')}>Excel Yükle</button>
             </div>
@@ -308,7 +308,7 @@ function Users() {
 
   return (
     <div>
-      <div className="flex justify-between w-full px-20">
+      <div className="flex gap-10 w-full px-20">
         <Button
           onClick={() => handleComponentClick('moderator', 'moderator')}
           isActive={activeComponent === 'moderator'}

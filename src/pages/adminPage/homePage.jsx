@@ -72,7 +72,7 @@ function AdminHomePage() {
           <div>
             <TopL activePage={activePage}/>
           </div>
-          <div className='flex item-center content-center'>
+          <div className='flex m-5'>
             <Role/>
             <Icon/>
           </div>
