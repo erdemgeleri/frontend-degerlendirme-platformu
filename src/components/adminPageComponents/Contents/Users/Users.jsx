@@ -140,7 +140,7 @@ function Users() {
             </select>
           </>
         )}
-        <button type="submit" className="p-2 border border-black m-5" onClick={handleAddUser}>Ekle</button>
+        <button type="submit" className="px-2 border border-black mx-2" onClick={handleAddUser}>Ekle</button>
       </div>
     );
 

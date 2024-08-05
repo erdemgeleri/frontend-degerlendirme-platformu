@@ -5,9 +5,8 @@ import ModeratorPage from './pages/moderatorPage/homePageComponents/HomePage';
 import ReviewerPage from './pages/degerlendirici_sayfa/evaluator';
 import TopReviewerPage from './pages/topEvaluatorPage/homePage';
 import LoginPage from './pages/loginPage/loginPage';
-import StudentPage from './pages/studentPage/homePage';
 import PrivateRoute from './components/PrivateRoute';
-
+import StudentPage from './pages/studentPage/ogrenci';
 function App() {
   return (
     <Router>

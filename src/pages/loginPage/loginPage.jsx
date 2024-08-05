@@ -19,22 +19,27 @@ const LoginPage = () => {
       setPopupMessage('Kullanıcı Girişi başarılı.');
       setPopupType('success');
       newRedirectAfterPopup = '/yonetici';
+      localStorage.setItem('userRole', 'admin');
     } else if (username === 'moderator' && password === 'modSif') {
       setPopupMessage('Kullanıcı Girişi başarılı.');
       setPopupType('success');
       newRedirectAfterPopup = '/moderator';
+      localStorage.setItem('userRole', 'moderator');
     } else if (username === 'degerlendirici' && password === 'degerlendiriciSif') {
       setPopupMessage('Kullanıcı Girişi başarılı.');
       setPopupType('success');
       newRedirectAfterPopup = '/degerlendirici';
+      localStorage.setItem('userRole', 'evaluator');
     } else if (username === 'ogrenci' && password === 'ogrenciSif') {
       setPopupMessage('Kullanıcı Girişi başarılı.');
       setPopupType('success');
       newRedirectAfterPopup = '/ogrenci';
+      localStorage.setItem('userRole', 'student');
     } else if (username === 'ustdegerlendirici' && password === 'ustdegerlendiriciSif') {
       setPopupMessage('Kullanıcı Girişi başarılı.');
       setPopupType('success');
       newRedirectAfterPopup = '/ustdegerlendirici';
+      localStorage.setItem('userRole', 'topEvaluator');
     } else {
       setPopupMessage('Kullanıcı adı veya şifre yanlış');
       setPopupType('error');
