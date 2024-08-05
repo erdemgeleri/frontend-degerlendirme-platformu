@@ -4,7 +4,7 @@ import TopL from '../../../components/adminPageComponents/genel_component/Header
 import Role from '../../../components/adminPageComponents/genel_component/Header/name_surname_role/Role';
 import Icon from '../../../components/adminPageComponents/genel_component/Header/iconComponent/icon';
 import MyExams from '../../../components/adminPageComponents/Contents/Exams/Exams';
-
+import Exam from '../examsPageComponents/examsPage';
 
 function ModeratorPage() {
   const [activePage, setActivePage] = useState('ModeratorPage');
@@ -14,7 +14,7 @@ function ModeratorPage() {
   };
 
   const handleExamsButtonClick = () => {
-    setActivePage('MyExams');
+    setActivePage('Exam');
   };
 
   const handleAnswerKeyButtonClick = () => {
@@ -23,8 +23,8 @@ function ModeratorPage() {
 
   const renderContent = () => {
     switch(activePage) {
-      case 'MyExams':
-        return <MyExams />;
+      case 'Exam':
+        return <Exam />;
       case 'AnswerKeyMod':
         return <AnswerKeyMod />;
       default:
