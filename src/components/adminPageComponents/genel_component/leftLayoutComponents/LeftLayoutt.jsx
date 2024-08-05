@@ -12,7 +12,7 @@ function LeftLayout({ role, onHomeButtonClick, onUserButtonClick, onExamsButtonC
         setActivePage(page);
         onClick();
       }}
-      className={`p-2 m-2 rounded text-black ${activePage === page ? 'border border-black bg-white' : 'custom-gray'}`}
+      className={`p-2 m-2 rounded text-white  ${activePage === page ? 'border border-black bg-white' : 'custom-gray'}`}
     >
       {label}
     </button>
@@ -36,10 +36,10 @@ function LeftLayout({ role, onHomeButtonClick, onUserButtonClick, onExamsButtonC
   };
 
   return (
-    <div className='relative h-screen bg-custom-gray'>
+    <div className='relative h-screen bg-customBluee '>
       <p className='flex text-3xl justify-center p-5'>LOGO</p>
-      <p className='flex text-3xl justify-center'>PLATFORM ADI</p>
-      <div className="flex flex-col mt-20 gap-8">
+      <p className='flex text-3xl justify-center text-white'>PLATFORM ADI</p>
+      <div className="flex flex-col mt-20 gap-8 ">
         {renderButton('home', 'ANASAYFA', onHomeButtonClick)}
         {role === 'student' && renderButton('myExams', 'SINAVLARIM', onExamsButtonClick)}
         {role === 'admin' && renderButton('users', 'KULLANICILAR', onUserButtonClick)}
@@ -50,7 +50,7 @@ function LeftLayout({ role, onHomeButtonClick, onUserButtonClick, onExamsButtonC
       </div>
       <button 
         onClick={handleLogout} 
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-400 text-black rounded p-2"
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 bg-transparant text-white rounded p-2"
       >
         ÇIKIŞ YAP
       </button>
