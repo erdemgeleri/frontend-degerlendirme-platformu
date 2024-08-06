@@ -64,23 +64,24 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex overflow-hidden h-screen">
+    <div className="md:grid  md:grid-cols-2 overflow-hidden">
       {/* Resim ve Üzerindeki Yazı */}
-      <div className='relative flex items-center justify-center w-full md:w-1/2 h-full'>
-        <img
-          src={aImage}
-          alt="Description of the image"
-          className="absolute inset-0 w-full h-full object-cover scale-100 transition-transform duration-300 ease-in-out"
-        />
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 mt-10 text-center">
+      <div className='relative flex flex-col  items-center justify-center w-full h-full  md:block '>
+      <div className="text-center">
           <p className='mx-10 text-customBluee text-7xl'>YEĞİTEK</p>
           <p className='text-customBluee text-base'>MEB Yenilik ve Eğitim Teknolojileri Genel Müdürlüğü</p>
         </div>
+        <img
+          src={aImage}
+          alt="Description of the image"
+          className="flex owerflow-hidden "
+        />
+      
       </div>
 
 
       {/* Giriş Formu */}
-      <div className="flex flex-col w-1/2 h-full items-center justify-center px-8">
+      <div className="flex flex-col w-full h-full items-center justify-center px-8">
         <div className="w-full max-w-sm">
           <label htmlFor="username" className="block text-lg font-bold mb-1 text-customBluee">Kullanıcı Adı</label>
           <input

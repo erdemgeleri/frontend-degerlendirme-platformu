@@ -12,10 +12,9 @@ const PrivateRoute = ({ element, requiredRole }) => {
   }
   
   if (role !== requiredRole) {
-    console.log(`Role mismatch: Expected ${requiredRole}, but got ${role}`);
     return <NotFoundUrlPage />;
   }
-
+ console.log({role});
   return element;
 };
 

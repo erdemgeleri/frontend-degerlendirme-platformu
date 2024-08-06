@@ -27,11 +27,11 @@ function Exam(){
                     <div>
                         <div>
                             <p className="font-bold">Soru Ekle</p>
-                            <input className="border border-black py-10 px-96 rounded-3xl" placeholder="Yazınız"></input>
+                            <input className="border border-black py-10 px-96 rounded-xl" placeholder="Yazınız"></input>
                         </div>
                         <div>
                             <p className="font-bold">Cevap Ekle</p>
-                            <input className="border border-black py-10 px-96 rounded-3xl justify-center" placeholder="Yazınız"></input>
+                            <input className="border border-black py-10 px-96 rounded-xl justify-center" placeholder="Yazınız"></input>
                         </div>
                         <button className="border border-black px-5 py-5 m-10">Cevap Anahtarı Eklemek İçin Tıklayınız</button>
                     </div>
