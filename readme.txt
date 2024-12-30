@@ -1,5 +1,5 @@
 1)Uygun npm sürümünü indirmek için aşağıdaki komutu girin
-	# npm install -g npm@10.8.1
+	npm install -g npm@10.8.1
 2)Proje bağımlılıklarını indirmek için aşağıdaki komutu vscode terminaline girin.
 	npm install
 3)Yukarıdaki komut çalıştırıldıktan sonra projeye uyumlu node sürümünü indirmek için vscode terminaline aşağıdaki komutu girin.
